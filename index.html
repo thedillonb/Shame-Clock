@@ -1,0 +1,157 @@
+<html>
+  <head>
+    <title>Shame Clock</title>
+    <style>
+      .container {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container > .item {
+          width: 100%;
+          font-weight: bold;
+          font-size: 2em;
+          text-align: center;
+      }
+
+      .container > .item > .digit {
+        display: inline-block;
+        margin-right: 4px;
+      }
+
+      .digit-number {
+        font-size: 107px;
+        padding: 3px 29px;
+        background: #38414a;
+        background: rgba(40,50,61,0.62);
+        font-family: "Roboto",sans-serif;
+        font-weight: 300;
+        width: 130px;
+        text-align: center;
+      }
+
+      .digit-label {
+        padding: 5px;
+        font-size: 16px;
+        text-align: left;
+        text-transform: uppercase;
+      }
+
+      body {
+        color: white;
+        font-family: Tahoma, Geneva, sans-serif;
+      }
+
+      h1 {
+        font-size: 80px;
+        margin: 20px 0;
+      }
+
+      .background {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -100;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/hsrRPUdKGTUH-bW6IifSx-v07n5nqueIztmRMZ-sI7yU9DIuF9ug5lQpVO9lcvwJFWA=w300');
+        background-size: cover;
+        background-repeat: no-repeat;
+        -webkit-filter: blur(15px);
+        -moz-filter: blur(15px);
+        -o-filter: blur(15px);
+        -ms-filter: blur(15px);
+        filter: blur(15px);
+      }
+
+      .shame-button > img {
+        color: white;
+        -webkit-filter: invert(1);
+        filter: invert(1);
+      }
+
+      @-webkit-keyframes wiggle {
+      	0% {
+      		-webkit-transform:rotate(8deg);
+      	}
+      	50% {
+      		-webkit-transform:rotate(-8deg);
+      	}
+      	100% {
+      		-webkit-transform:rotate(8deg);
+      	}
+      }
+
+      .shame-button > img:hover, .shame-button > img.ringing {
+	       -webkit-animation: wiggle 0.5s infinite;
+       }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="container">
+      <div class="item">
+        <div class="digit">
+          <div class="digit-number" id="days">0</div>
+          <div class="digit-label">DAYS</div>
+        </div>
+        <div class="digit">
+          <div class="digit-number" id="hours">0</div>
+          <div class="digit-label">HOURS</div>
+        </div>
+        <div class="digit">
+          <div class="digit-number" id="minutes">0</div>
+          <div class="digit-label">MINUTES</div>
+        </div>
+        <div class="digit">
+          <div class="digit-number" id="seconds">0</div>
+          <div class="digit-label">SECONDS</div>
+        </div>
+
+        <h1>Since the last Shaming</h1>
+        <br>
+        <a id="shame-button" class="shame-button" href="#" onclick="shame();">
+          <img src="http://iconshow.me/media/images/ui/iOS7-optimized-icon/png/512/43.bell.png" width="64" height="64">
+        </a>
+      </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+    <script>
+      var snd = new Audio("https://a.clyp.it/2kgl0pgi.mp3");
+      snd.addEventListener('ended', function() {
+        $('#shame-button > img').removeClass('ringing');
+      });
+      var lastShame = moment();
+
+      function shame() {
+        snd.play();
+        $('#shame-button > img').addClass('ringing');
+        lastShame = moment();
+      }
+
+      function refresh() {
+        var now = moment();
+        $('#days').text(now.diff(lastShame, 'days'));
+        $('#hours').text(now.diff(lastShame, 'hours') % 24);
+        $('#minutes').text(now.diff(lastShame, 'minutes') % 60);
+        $('#seconds').text(now.diff(lastShame, 'seconds') % 60);
+        setTimeout(refresh, 1000);
+      };
+
+      $(function() {
+        refresh();
+      })
+    </script>
+  </body>
+</html>
