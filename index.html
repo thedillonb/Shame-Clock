@@ -61,7 +61,7 @@
         top: 0;
         bottom: 0;
         z-index: -100;
-        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/hsrRPUdKGTUH-bW6IifSx-v07n5nqueIztmRMZ-sI7yU9DIuF9ug5lQpVO9lcvwJFWA=w300');
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/nun.png');
         background-size: cover;
         background-repeat: no-repeat;
         -webkit-filter: blur(15px);
@@ -118,17 +118,14 @@
         <h1>Since the last Shaming</h1>
         <br>
         <a id="shame-button" class="shame-button" href="#" onclick="shame();">
-          <img src="http://iconshow.me/media/images/ui/iOS7-optimized-icon/png/512/43.bell.png" width="64" height="64">
+          <img src="images/bell.png" width="64" height="64">
         </a>
       </div>
     </div>
-
-
-
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
     <script>
-      var snd = new Audio("https://a.clyp.it/2kgl0pgi.mp3");
+      var snd = new Audio("audio/shame.mp3");
       snd.addEventListener('ended', function() {
         $('#shame-button > img').removeClass('ringing');
       });
