@@ -99,19 +99,19 @@
     <div class="container">
       <div class="item">
         <div class="digit">
-          <div class="digit-number" id="days">0</div>
+          <div class="digit-number" id="days">&nbsp;</div>
           <div class="digit-label">DAYS</div>
         </div>
         <div class="digit">
-          <div class="digit-number" id="hours">0</div>
+          <div class="digit-number" id="hours">&nbsp;</div>
           <div class="digit-label">HOURS</div>
         </div>
         <div class="digit">
-          <div class="digit-number" id="minutes">0</div>
+          <div class="digit-number" id="minutes">&nbsp;</div>
           <div class="digit-label">MINUTES</div>
         </div>
         <div class="digit">
-          <div class="digit-number" id="seconds">0</div>
+          <div class="digit-number" id="seconds">&nbsp;</div>
           <div class="digit-label">SECONDS</div>
         </div>
 
@@ -129,12 +129,19 @@
       snd.addEventListener('ended', function() {
         $('#shame-button > img').removeClass('ringing');
       });
-      var lastShame = moment();
-
+	  
+	  if (localStorage.lastShame) {
+		var lastShame = moment(localStorage.lastShame);
+	  } else {
+		var lastShame = moment();
+		localStorage.lastShame = lastShame.format()
+	  }
+	  
       function shame() {
         snd.play();
         $('#shame-button > img').addClass('ringing');
         lastShame = moment();
+		localStorage.lastShame = lastShame.format()
       }
 
       function refresh() {
